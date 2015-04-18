@@ -1,0 +1,2 @@
+defmodule LoremIpsum do
+end
