@@ -2,7 +2,11 @@ defmodule LoremIpsum do
 	defstruct source: nil
 	
 	def new(source) do
-		%LoremIpsum{source: source}
+		if String.starts_with?(source, "http://") do
+			%LoremIpsum{source: URI.parse(source)}
+		else
+			%LoremIpsum{source: source}
+		end
 	end
 	
 	def source(lorem_ipsum) do
