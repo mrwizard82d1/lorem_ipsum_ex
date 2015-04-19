@@ -1,9 +1,11 @@
 defmodule LoremIpsumTest do
   use ExUnit.Case
 
+	@lorem_ipsum_start "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim"
+
 	setup do
 		{:ok, [uri: "http://www.loremipsum.com", 
-					 lorem_start: "Lorem ipsum dolor sit amet"]}
+					 lorem_start: @lorem_ipsum_start]}
 	end
 
 	test "construct from string", %{lorem_start: source} do
@@ -17,7 +19,7 @@ defmodule LoremIpsumTest do
 		sut = new_sut(source)
 		actual_start = LoremIpsum.source(sut) |> Enum.take(5)
 		# Lorem ipsum dolor sit amet,
-		assert String.split(expected_start <> ",") == actual_start
+		assert (String.split(expected_start) |>  Enum.take(5)) == actual_start
 	end
 
 	# test "construct from uri has correct host", %{uri: source} do
