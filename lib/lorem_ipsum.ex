@@ -3,7 +3,7 @@ defmodule LoremIpsum do
 	
 	def new(source) do
 		if String.starts_with?(source, "http://") do
-			%LoremIpsum{source: URI.parse(source)}
+			%LoremIpsum{source: []}
 		else
 			%LoremIpsum{source: source}
 		end
