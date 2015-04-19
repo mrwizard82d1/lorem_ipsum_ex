@@ -16,7 +16,8 @@ defmodule LoremIpsumTest do
 	%{uri: source, lorem_start: expected_start} do
 		sut = new_sut(source)
 		actual_start = LoremIpsum.source(sut) |> Enum.take(5)
-		assert String.split(expected_start) == actual_start
+		# Lorem ipsum dolor sit amet,
+		assert String.split(expected_start <> ",") == actual_start
 	end
 
 	# test "construct from uri has correct host", %{uri: source} do

@@ -12,11 +12,11 @@ defmodule LoremIpsum do
 			words_source = lorem_start 
 			|> String.split(~r{</div>})
 			|> Enum.at 0
-			words = String.split(words_source)
 		else
 			words_source = source
 		end
 		words = String.split(words_source)
+		|> Enum.filter(fn(w) -> (not String.match?(w, ~r{</?p>})) end)
 		%LoremIpsum{source: words}
 	end
 	
