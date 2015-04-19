@@ -3,10 +3,21 @@ defmodule LoremIpsum do
 	
 	def new(source) do
 		if String.starts_with?(source, "http://") do
-			%LoremIpsum{source: []}
+			HTTPoison.start
+			{:ok, %HTTPoison.Response{status_code: 200, body: body}} = 
+				HTTPoison.post("http://www.lipsum.com/feed/html", {:form, []})
+			lorem_start = body
+			|> String.split(~r{<div\s+id="lipsum">\s*})
+			|> Enum.at 1
+			words_source = lorem_start 
+			|> String.split(~r{</div>})
+			|> Enum.at 0
+			words = String.split(words_source)
 		else
-			%LoremIpsum{source: source}
+			words_source = source
 		end
+		words = String.split(words_source)
+		%LoremIpsum{source: words}
 	end
 	
 	def source(lorem_ipsum) do
